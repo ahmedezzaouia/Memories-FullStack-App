@@ -19,8 +19,9 @@ const Home = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    console.log("home useeffect");
     dispatch(getPosts());
-  }, [dispatch, currentId]);
+  }, [dispatch]);
   return (
     <Grow in>
       <Container>

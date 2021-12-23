@@ -1,22 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import useStyles from "./styles";
 import { AUTH } from "../../constants/actionTypes";
+import { useNavigate } from "react-router-dom";
+import decode from "jwt-decode";
 
 const Navbar = () => {
   const IMG_PLACEHOLDER =
     "https://png.pngitem.com/pimgs/s/506-5067022_sweet-shap-profile-placeholder-hd-png-download.png";
   const dispatch = useDispatch();
+  const navigateTo = useNavigate();
   const user = useSelector((state) => state.authData);
   const classes = useStyles();
 
   const logout = () => {
     dispatch({ type: AUTH, payload: null });
+    navigateTo("/auth");
   };
 
-  // useEffect(() => {});
+  useEffect(() => {
+    console.log("useEffect of Navbar ");
+    // check if the token expire
+    // decode token will retun a payload decoded
+    if (user) {
+      const decodedToken = decode(user?.token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    }
+  });
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">

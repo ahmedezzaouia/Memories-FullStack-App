@@ -1,14 +1,19 @@
 import axios from "axios";
-const authData = JSON.parse(localStorage.getItem("user"));
 const API = axios.create({
   baseURL: "http://localhost:5000",
-  headers: { Authorization: `Bearer ${authData.token}` },
+});
+
+API.interceptors.request.use((req) => {
+  const token = JSON.parse(localStorage.getItem("user"))?.token;
+  if (token) req.headers.Authorization = `Bearer ${token}`;
+  return req;
 });
 export const fetchPosts = () => {
   return API.get("/posts");
 };
 
 export const addPost = (newPost) => {
+  console.log("add post run");
   return API.post("/posts", newPost);
 };
 
