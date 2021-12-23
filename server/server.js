@@ -4,12 +4,11 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import postRoutes from "./routes/posts.js";
 import dotenv from "dotenv";
+import userRoutes from "./routes/user.js";
 
 const PORT = process.env.PORT || 5000;
 dotenv.config();
 const app = express();
-// const CONNECTION_URL =
-//   "mongodb+srv://ahmed:superNova20@cluster0.fvksi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 mongoose
   .connect(process.env.CONNECTION_URL, {
@@ -30,4 +29,5 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.get("/", (req, res) => {
   res.send("Home Page");
 });
+app.use("/user", userRoutes);
 app.use("/posts", postRoutes);

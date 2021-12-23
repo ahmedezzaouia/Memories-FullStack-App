@@ -1,16 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useStyles from "./styles";
+import { AUTH } from "../../constants/actionTypes";
 
 const Navbar = () => {
-  const [user, setUser] = useState(null);
+  const IMG_PLACEHOLDER =
+    "https://png.pngitem.com/pimgs/s/506-5067022_sweet-shap-profile-placeholder-hd-png-download.png";
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.authData);
   const classes = useStyles();
 
-  const logout = () => {};
+  const logout = () => {
+    dispatch({ type: AUTH, payload: null });
+  };
 
-  useEffect(() => {});
+  // useEffect(() => {});
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">

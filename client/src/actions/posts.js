@@ -10,6 +10,7 @@ export const getPosts = () => async (dispatch) => {
   }
 };
 export const createPost = (newPost) => async (dispatch) => {
+  console.log("creatpost run");
   try {
     const { data } = await api.addPost(newPost);
     dispatch({ type: CREATE, payload: data });

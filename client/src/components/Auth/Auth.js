@@ -2,16 +2,20 @@ import React, { useState } from "react";
 import { Avatar, Button, Paper, Grid, Typography, Container, Grow } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Icon from "./Icon";
-import { AUTH } from "../../constants/actionTypes";
+import { AUTH, SIGN_IN, SIGN_UP } from "../../constants/actionTypes";
 import useStyles from "./styles";
 import Input from "./Input";
 import GoogleLogin from "react-google-login";
-
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { signUp, signIn } from "../../actions/auth.js";
 const initialState = { firstName: "", lastName: "", email: "", password: "", confirmPassword: "" };
 
 const Auth = () => {
+  const dispatch = useDispatch();
+  const navigateTo = useNavigate();
   const [isSignup, setIsSignup] = useState(false);
-  const [signInfo, setSignInfo] = useState(initialState);
+  const [userData, setSignInfo] = useState(initialState);
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -21,13 +25,29 @@ const Auth = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(signInfo);
+    if (isSignup) {
+      // sign up the user
+      dispatch(signUp(userData, navigateTo));
+    } else {
+      // sign in the user
+      dispatch(signIn(userData, navigateTo));
+      console.log("over dispatch line");
+    }
   };
-  const googleSuccess = async (res) => {};
+  const googleSuccess = async (res) => {
+    console.log(res);
+    const result = res.profileObj;
+    const token = res.tokenId;
+    dispatch({ type: AUTH, payload: { result, token } });
+    navigateTo("/");
+  };
   const handleChange = (e) => {
-    setSignInfo({ ...signInfo, [e.target.name]: e.target.value });
+    setSignInfo({ ...userData, [e.target.name]: e.target.value });
   };
-  const googleError = () => {};
+  const googleError = (err) => {
+    console.log(err);
+    navigateTo("/");
+  };
 
   return (
     <Grow in>
@@ -63,7 +83,7 @@ const Auth = () => {
               {isSignup ? "Sign Up" : "Sign in"}
             </Button>
             <GoogleLogin
-              clientId="put your google id her"
+              clientId="120246364014-91mku6vvi5rp3me5lqvlkht79qgrgq88.apps.googleusercontent.com"
               render={(renderProps) => (
                 <Button
                   className={classes.googleButton}
