@@ -84,7 +84,6 @@ const Post = ({ post, setCurrentId }) => {
           disabled={user?.result ? false : true}
           onClick={() => {
             dispatch(likePost(post._id));
-            console.log(post.likesCount);
           }}
         >
           <Likes />

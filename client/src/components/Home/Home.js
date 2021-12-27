@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { AUTH } from "../../constants/actionTypes.js";
 
 const Home = () => {
+  console.log("AUTH Component run");
+
   const dispatch = useDispatch();
   const [currentId, setCurrentId] = useState(null);
 

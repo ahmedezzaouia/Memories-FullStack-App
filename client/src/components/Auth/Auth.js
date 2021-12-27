@@ -12,6 +12,7 @@ import { signUp, signIn } from "../../actions/auth.js";
 const initialState = { firstName: "", lastName: "", email: "", password: "", confirmPassword: "" };
 
 const Auth = () => {
+  console.log("AUTH Component run");
   const dispatch = useDispatch();
   const navigateTo = useNavigate();
   const [isSignup, setIsSignup] = useState(false);
@@ -46,7 +47,6 @@ const Auth = () => {
   };
   const googleError = (err) => {
     console.log(err);
-    navigateTo("/");
   };
 
   return (

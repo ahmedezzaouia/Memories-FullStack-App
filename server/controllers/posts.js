@@ -13,10 +13,13 @@ export const getPosts = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
-  const post = req.body;
-  // if (!post) throw "post is empty";
-  const newPost = new postMessage(post);
+  console.log("creatPost in server");
   try {
+    console.log(req.body);
+    const userId = req.userId;
+    if (!userId) return res.status(400).json({ message: "unauthorization user" });
+    const post = req.body;
+    const newPost = new postMessage({ ...post, creatorId: userId });
     await newPost.save();
     res.status(201).json(newPost);
   } catch (error) {
@@ -33,7 +36,7 @@ export const updatePost = async (req, res) => {
     const updatedPost = await postMessage.findByIdAndUpdate(_id, post, {
       new: true,
     });
-    res.json(updatedPost);
+    res.status(201).json(updatedPost);
   } catch (error) {
     console.log(error);
   }
@@ -52,12 +55,16 @@ export const deletePost = async (req, res) => {
 
 export const likePost = async (req, res) => {
   try {
-    const { id: _id } = req.params;
-    if (!mongoose.Types.ObjectId.isValid(_id)) return res.send("No post with that id ");
-    const post = await postMessage.findById(_id);
-    const updatedLikes = await postMessage.findByIdAndUpdate(_id, { likesCount: post.likesCount + 1 }, { new: true });
-    res.json(updatedLikes);
+    const userId = req.userId;
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).json({ message: "post not found with that id" });
+    const post = await postMessage.findById(id);
+    const index = post.likes.findIndex((like) => like === userId);
+    if (index === -1) post.likes.push(userId);
+    else post.likes.splice(index, 1);
+    const updatedpost = await post.save();
+    res.status(201).json(updatedpost);
   } catch (error) {
-    console.log(error);
+    res.json(error);
   }
 };
