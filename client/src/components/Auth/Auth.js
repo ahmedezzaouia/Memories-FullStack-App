@@ -48,7 +48,6 @@ const Auth = () => {
   const googleError = (err) => {
     console.log(err);
   };
-
   return (
     <Grow in>
       <Container component="main" maxWidth="xs">

@@ -5,10 +5,12 @@ import useStyles from "./styles";
 import { useDispatch } from "react-redux";
 import { createPost, updatePost } from "../../actions/posts.js";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Form = ({ currentId, setCurrentId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigateTo = useNavigate();
   const user = useSelector((state) => state.authData);
   const post = useSelector((state) => {
     return currentId ? state.posts.find((post) => post._id === currentId) : null;
@@ -36,7 +38,7 @@ const Form = ({ currentId, setCurrentId }) => {
       console.log("update post");
     } else {
       // create post
-      dispatch(createPost(postData));
+      dispatch(createPost(postData, navigateTo));
     }
     clear();
   };

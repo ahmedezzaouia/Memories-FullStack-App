@@ -8,12 +8,17 @@ API.interceptors.request.use((req) => {
   if (token) req.headers.Authorization = `Bearer ${token}`;
   return req;
 });
-export const fetchPosts = () => {
-  return API.get("/posts");
+export const fetchPosts = (page) => {
+  console.log("page" + page);
+  return API.get(`/posts?page=${page}`);
+};
+export const getPostsBySearch = (search, tags) => {
+  return API.get(`/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`);
 };
 
+export const getPost = (id) => API.get(`/posts/${id}`);
+
 export const addPost = (newPost) => {
-  console.log("add post run");
   return API.post("/posts", newPost);
 };
 

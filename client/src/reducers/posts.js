@@ -1,7 +1,10 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE } from "../constants/actionTypes";
+import { FETCH_ALL, CREATE, UPDATE, DELETE, GET_POSTS_BY_SEARCH } from "../constants/actionTypes";
 const reducer = (posts = [], action) => {
   switch (action.type) {
     case FETCH_ALL:
+      return action.payload;
+    case GET_POSTS_BY_SEARCH:
+      console.log(action.payload);
       return action.payload;
     case DELETE:
       return posts.filter((post) => post._id !== action.payload);
