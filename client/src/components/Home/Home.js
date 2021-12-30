@@ -1,10 +1,10 @@
 import { React, useState, useEffect } from "react";
 import { Container, Grow, Grid, TextField, Button, CircularProgress } from "@material-ui/core";
 import Form from "../form/form";
-import Posts from "../posts/Posts";
+import Posts from "../posts/posts";
 import { getPosts, getPostsBySearch } from "../../actions/posts";
 import { useDispatch } from "react-redux";
-import { AUTH, FETCH_ALL } from "../../constants/actionTypes.js";
+import { AUTH } from "../../constants/actionTypes.js";
 import Paginate from "../Pagination";
 import ChipInput from "material-ui-chip-input";
 import useStyles from "./styles";
