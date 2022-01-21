@@ -8,8 +8,6 @@ import { useNavigate } from "react-router-dom";
 import decode from "jwt-decode";
 
 const Navbar = () => {
-  const IMG_PLACEHOLDER =
-    "https://png.pngitem.com/pimgs/s/506-5067022_sweet-shap-profile-placeholder-hd-png-download.png";
   const dispatch = useDispatch();
   const navigateTo = useNavigate();
   const user = useSelector((state) => state.authData);
@@ -36,12 +34,6 @@ const Navbar = () => {
         <Typography component={Link} to="/" className={classes.heading} variant="h2" align="center">
           Memories
         </Typography>
-        <img
-          className={classes.image}
-          src="https://okkywrites.files.wordpress.com/2021/01/memories2.jpg"
-          alt="icon"
-          height="60"
-        />
       </div>
       <Toolbar className={classes.toolbar}>
         {user?.result != null ? (

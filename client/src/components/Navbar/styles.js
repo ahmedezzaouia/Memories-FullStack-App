@@ -5,11 +5,15 @@ export default makeStyles((theme) => ({
   appBar: {
     borderRadius: 15,
     margin: "30px 0",
-    display: "flex",
-    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     padding: "10px 50px",
+    display: "flex",
+    flexDirection: "row",
+    "@media (max-width: 620px)": {
+      display: "flex",
+      flexDirection: "column",
+    },
   },
   heading: {
     color: "rgba(0,183,255, 1)",
@@ -22,10 +26,15 @@ export default makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-end",
     width: "400px",
+    flexDirection: "row",
+    "@media (max-width: 620px)": {
+      display: "flex",
+      flexDirection: "column",
+    },
   },
   profile: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     width: "400px",
   },
   userName: {
