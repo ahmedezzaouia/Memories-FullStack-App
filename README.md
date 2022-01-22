@@ -1,7 +1,7 @@
 # Getting Started with Create React App
 
 if You want to see the site live.\
-open [https://memories-app44.netlify.app]https://memories-app44.netlify.app) to view it in the browser.
+open https://memories-app44.netlify.app) to view it in the browser.
 
 
 ## Available Scripts
